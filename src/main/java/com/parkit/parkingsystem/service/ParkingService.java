@@ -120,7 +120,7 @@ public class ParkingService {
                     parkingSpot.setAvailable(true);
                     parkingSpotDAO.updateParking(parkingSpot);
                     if (ticketDAO.isUserAlreadyComing(vehicleRegNumber)) {
-                        System.out.println("as a recuring user, you will pay with a 5% discount" + (ticket.getPrice()));
+                        System.out.println("as a recuring user, you will pay with a 5% discount, the price will be " + (ticket.getPrice()));
                         System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
                     }
                     System.out.println("Please pay the parking fare:" + ticket.getPrice());

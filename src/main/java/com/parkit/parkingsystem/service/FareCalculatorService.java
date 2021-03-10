@@ -23,7 +23,7 @@ public class FareCalculatorService {
 
 
         double duration = minutes / 60d; // I've changed the duration calculation by adding the minutes (before the calculation was only by hour)
-        // voir le fichier initial pour expliquer ce que l'on a fait lors de la soutenance
+
         if (minutes < 30) {
             ticket.setPrice(0);
             return ;
