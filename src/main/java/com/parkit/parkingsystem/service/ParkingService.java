@@ -31,7 +31,7 @@ public class ParkingService {
     public void processIncomingVehicle() {
         try {
             ParkingSpot parkingSpot = getNextParkingNumberIfAvailable();
-            if (parkingSpot != null && parkingSpot.getId() > 0 ) {
+            if (parkingSpot != null && parkingSpot.getId() > 0) {
                 String vehicleRegNumber = getVehichleRegNumber();
                 parkingSpot.setAvailable(false);
                 parkingSpotDAO.updateParking(parkingSpot);//alloy this parking space to the vehicle and mark it's availability as false
@@ -44,7 +44,7 @@ public class ParkingService {
                 ticket.setPrice(0);
                 ticket.setInTime(inTime);
                 ticket.setOutTime(null);
-                if(ticketDAO.isUserNotAlreadyArrive(vehicleRegNumber)){
+                if (ticketDAO.isUserNotAlreadyArrive(vehicleRegNumber)) {
                     ticketDAO.saveTicket(ticket);
                     System.out.println("Generated Ticket and saved in DB");
 
@@ -112,27 +112,27 @@ public class ParkingService {
         try {
             String vehicleRegNumber = getVehichleRegNumber();
             Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
-            Date outTime = new Date();
-            ticket.setOutTime(outTime);
-            fareCalculatorService.calculateFare(ticket);
-            if (ticketDAO.isUserNotAlreadyGone(vehicleRegNumber) && (ticketDAO.updateTicket(ticket))){
-                    ParkingSpot parkingSpot = ticket.getParkingSpot();
-                    parkingSpot.setAvailable(true);
-                    parkingSpotDAO.updateParking(parkingSpot);
-                    if (ticketDAO.isUserAlreadyComing(vehicleRegNumber)) {
-                        System.out.println("as a recuring user, you will pay with a 5% discount, the price will be " + (ticket.getPrice()));
-                        System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
-                    }
-                    System.out.println("Please pay the parking fare:" + ticket.getPrice());
-                    System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
-                } else {
-                    System.out.println("Unable to update ticket information. Error occurred");
-                }
+            boolean reccuringUser = ticketDAO.recurringUser(vehicleRegNumber);
 
-            }catch(Exception e){
-                logger.error("Unable to process exiting vehicle", e);
+            Date outTime = new Date();
+            ticket.setOutTime(outTime); // mettre une exception
+            fareCalculatorService.calculateFare(ticket, reccuringUser);
+            ticketDAO.updateTicket(ticket);
+            ParkingSpot parkingSpot = ticket.getParkingSpot();
+            parkingSpot.setAvailable(true);
+            parkingSpotDAO.updateParking(parkingSpot);
+            if (reccuringUser) {
+                System.out.println("as a recuring user, you will pay with a 5% discount, the price will be " + (ticket.getPrice()));
+                System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+            } else {
+                System.out.println("Please pay the parking fare:" + ticket.getPrice());
+                System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
             }
+
+        } catch (Exception e) {
+            logger.error("Unable to process exiting vehicle", e);
         }
+    }
 
 
 }
