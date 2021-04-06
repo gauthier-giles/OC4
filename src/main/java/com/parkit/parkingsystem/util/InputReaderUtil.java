@@ -14,7 +14,8 @@ public class InputReaderUtil {
 
     /**
      * read and display the information from the database
-     * @throws logger error if "reader" can't read selection
+     * @return -1
+     * if "reader" can't read selection
      */
     public int readSelection() {
 

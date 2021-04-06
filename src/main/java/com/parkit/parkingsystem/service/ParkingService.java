@@ -42,7 +42,6 @@ public class ParkingService {
      * it verify that the vehicle is not already inside the parking,
      * and display if customer already coming.
      * update the parkingSpot.
-     * @throws logger exception.
      */
     public void processIncomingVehicle() {
         try {
@@ -87,8 +86,8 @@ public class ParkingService {
      *
      * @return the next available parking slot
      * if parking is full it return an error
-     * @throws logger error if parking is full
-     * @throws logger error if parking is full for this vehicle type
+     * logger error if parking is full
+     * logger error if parking is full for this vehicle type
      * (bike or car)
      **/
 
@@ -146,7 +145,7 @@ public class ParkingService {
      *
      * display the price, the vehicleRegNumber, and if customer was a recurring user.
      *
-     * @throws logger error
+     * logger error
      * if it's unable to exit a vehicle park in the database.
      */
     public void processExitingVehicle() {
