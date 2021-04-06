@@ -5,6 +5,13 @@ import com.parkit.parkingsystem.model.Ticket;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class caculate the Price and verify if user is a recurring user
+ * @see com.parkit.parkingsystem.dao.TicketDAO
+ * @return the price
+ * and calculate the time difference between outTime and inTime in Minutes
+ **/
+
 public class FareCalculatorService {
 
 

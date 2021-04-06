@@ -7,6 +7,11 @@ import java.sql.*;
 
 public class DataBaseConfig {
 
+    /**This class create the Logger.
+     * and prepare and open the connection to the prod database
+     * and closed the statement and the connection to the prod database
+     * */
+
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
@@ -16,6 +21,12 @@ public class DataBaseConfig {
                 "jdbc:mysql://localhost:3306/prod?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Paris", "root", "rootroot");
     }
 
+    /**
+     *
+     * @param con
+     * @throws logger.error if connection can't close
+     */
+    @SuppressWarnings("checkstyle:FinalParameters")
     public void closeConnection(Connection con) {
         if (con != null) {
             try {
@@ -26,7 +37,12 @@ public class DataBaseConfig {
             }
         }
     }
-
+    /**
+     *
+     * @param PreparedStatement ps
+     * @throws logger.error if connection can't close
+     */
+    @SuppressWarnings({"checkstyle:FinalParameters", "checkstyle:JavadocMethod"})
     public void closePreparedStatement(PreparedStatement ps) {
         if (ps != null) {
             try {
@@ -37,7 +53,12 @@ public class DataBaseConfig {
             }
         }
     }
-
+    /**
+     *
+     * @param ResultSet rs
+     * @throws logger.error if connection can't close
+     */
+    @SuppressWarnings({"checkstyle:FinalParameters", "checkstyle:JavadocMethod"})
     public void closeResultSet(ResultSet rs) {
         if (rs != null) {
             try {

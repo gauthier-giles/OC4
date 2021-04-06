@@ -29,6 +29,10 @@ public class FareCalculatorServiceTest {
         ticket = new Ticket();
     }
 
+    /**
+     * verify the price if a car stay 60 minutes in the parking
+     * verify the price if a bike stay 60 minutes in the parking
+     */
     @Test
     public void calculateFareCar() {
         calculateFareTest(60, ParkingType.CAR, Fare.CAR_RATE_PER_HOUR);
@@ -39,6 +43,7 @@ public class FareCalculatorServiceTest {
         calculateFareTest(60, ParkingType.BIKE, Fare.BIKE_RATE_PER_HOUR);
     }
 
+    /** verify if the ticket information are right */
     @Test
     public void calculateFareUnkownType() {
         Date inTime = new Date();
@@ -64,6 +69,14 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket));
     }
+
+    /**
+     * verify the ticket price for a bike, stayed less than an hour but more than 30 minutes
+     * verify the ticket price for a car, stayed less than an hour but more than 30 minutes
+     * verify the ticket price for a car, stayed more than a day in the parking
+     * verify the ticket price for a car, stayed less than 30 minutes
+     * verify the ticket price for a bike, stayed less than 30 minutes
+     */
 
     @Test
     public void calculateFareBikeWithLessThanOneHourParkingTime() {
@@ -99,6 +112,7 @@ public class FareCalculatorServiceTest {
         calculateFareTest(29, ParkingType.BIKE, 0.0);
     }
 
+
     private void calculateFareTest(int parkingMinutes, ParkingType type, double attendedPrice) {
         calculateFareTest(parkingMinutes, type, attendedPrice,false);
     }
@@ -122,6 +136,16 @@ public class FareCalculatorServiceTest {
 
     }
     // SE SOUVENIR DU REFACTOR !!! selection => click droit => refactor => extract method => preview
+
+
+    /**
+     * verify the ticket price for a car stayed 1 hour and where user is a recurring user
+     * verify the ticket price for a car stayed 2 hours and where user is a recurring user
+     * verify the ticket price for a bike stayed 1 hour and where user is a recurring user
+     * verify the ticket price for a bike stayed 2 hours and where user is a recurring user
+     * verify the ticket price for a car stayed less than 30 minutes and where user is a recurring user (verify if user have to pay or if it's free)
+     * verify the ticket price for a bike stayed less than 30 minutes and where user is a recurring user (verify if user have to pay or if it's free)
+     */
 
     @Test
     public void calculateFareCarIfRegNumberAlreadyExists() {

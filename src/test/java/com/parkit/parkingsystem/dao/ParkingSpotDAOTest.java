@@ -17,12 +17,19 @@ class ParkingSpotDAOTest {
     @Mock
     private static DataBaseConfig dataBaseConfig;
 
+    /**
+     * verify if parking have free parking spot
+     */
     @Test
     public void slotIsnotEmpty(){
         ParkingSpotDAO parkingSpotDAO  = new ParkingSpotDAO();
         assertNotNull(parkingSpotDAO);
     }
 
+    /**
+     * verify if we can update parking with a new vehicle
+     * inside the parking (but not proceed to "incoming vehicle")
+     */
     @Test
     void updateParkingTest() {
         ParkingSpot parkingSpot = new ParkingSpot(1,ParkingType.CAR,false);

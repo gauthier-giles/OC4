@@ -2,6 +2,11 @@ package com.parkit.parkingsystem.model;
 
 import com.parkit.parkingsystem.constants.ParkingType;
 
+/**
+ * This Class create ParkingSpot
+ * and return the parking sport number, type, and availabilty
+ * the user could set them too
+ */
 public class ParkingSpot {
     private int number;
     private ParkingType parkingType;

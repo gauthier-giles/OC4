@@ -10,6 +10,12 @@ public class DataBaseTestConfig extends DataBaseConfig {
 
     private static final Logger logger = LogManager.getLogger("DataBaseTestConfig");
 
+    /**
+     * verify if connection is possible
+     * @return the connection to "test" database if connection is possible
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -18,6 +24,11 @@ public class DataBaseTestConfig extends DataBaseConfig {
                         "false&serverTimezone=Europe/Paris","root","rootroot");
     }
 
+    /**
+     * permit to close connection with "test" database
+     * @param con
+     * @throws logger error if connection can't close
+     */
     public void closeConnection(Connection con){
         if(con!=null){
             try {
@@ -29,6 +40,11 @@ public class DataBaseTestConfig extends DataBaseConfig {
         }
     }
 
+    /**
+     * verify if SQL query can stop
+     * @param ps
+     * @throws logger error if SQL query can't stop
+     */
     public void closePreparedStatement(PreparedStatement ps) {
         if(ps!=null){
             try {
@@ -40,6 +56,11 @@ public class DataBaseTestConfig extends DataBaseConfig {
         }
     }
 
+    /**
+     * verify if the program can close the SQL query results
+     * @param rs
+     * @throws logger error if program can't close the query results
+     */
     public void closeResultSet(ResultSet rs) {
         if(rs!=null){
             try {

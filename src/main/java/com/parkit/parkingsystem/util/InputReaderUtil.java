@@ -10,7 +10,13 @@ public class InputReaderUtil {
     private static Scanner scan = new Scanner(System.in);
     private static final Logger logger = LogManager.getLogger("InputReaderUtil");
 
+
+    /**
+     * read and display the information from the database
+     * @throws logger error if "reader" can't read selection
+     */
     public int readSelection() {
+
         try {
             int input = Integer.parseInt(scan.nextLine());
             return input;
@@ -21,7 +27,12 @@ public class InputReaderUtil {
         }
     }
 
-    @SuppressWarnings("checkstyle:RegexpSingleline")
+    /**
+     *
+      * @return vehicle registration number
+     * @throws Exception logger error if this function can't read the user entry
+     * in the database or if user don't put anything as a vehicle registration number
+     */
     public String readVehicleRegistrationNumber() throws Exception {
         try {
             String vehicleRegNumber = scan.nextLine();

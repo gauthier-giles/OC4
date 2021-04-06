@@ -13,6 +13,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
+/**
+ * This class create, save, and update the parking's ticket
+ * @see DataBaseConfig
+ *
+ * verify if user left the parking
+ * verify if user don't occupy and existing place
+ * and verify if user is a recurring user or no
+ *
+ * @throws logger.error
+ */
+
 public class TicketDAO {
 
     private static final Logger logger = LogManager.getLogger("TicketDAO");
@@ -20,7 +31,14 @@ public class TicketDAO {
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
 
-
+    /**
+     *
+     * @param ticket
+     * @return the query result, and save the ticket information
+     * the ID of the parkingSpot
+     * the vehicleRegNumber (primary key of ticket table in "Prod" and "test" Database)
+     *
+     */
     public boolean saveTicket(Ticket ticket) {
         Connection con = null;
         try {
@@ -42,6 +60,16 @@ public class TicketDAO {
         }
     }
 
+    /**
+     *
+     * @param vehicleRegNumber
+     * @return the ticket, with vehicleRegNumber, the parkingSpot, the ID, the Price, the entry and the exit
+     * show to the user the price
+     * @see com.parkit.parkingsystem.service.FareCalculatorService
+     * @see com.parkit.parkingsystem.constants.Fare
+     * @see ParkingType
+     * @see ParkingSpotDAO
+     */
     public Ticket getTicket(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket = null;
@@ -71,6 +99,12 @@ public class TicketDAO {
         }
     }
 
+    /**
+     *
+     * @param ticket
+     * @return the updated ticket
+     * @see com.parkit.parkingsystem.dao.TicketDAO
+     */
     public boolean updateTicket(Ticket ticket) {
         Connection con = null;
         try {
@@ -89,6 +123,14 @@ public class TicketDAO {
         return false;
     }
 
+    /**
+     *
+     * @param vehicleRegNumber vehicle registration number (as a numberplate)
+     * @return true if the vehicle ever coming in the parking as a paying user
+     * verify if user have paid last time he's coming (more than 30 minutes)
+     * if yes, user will have a 5% discount
+     * @see com.parkit.parkingsystem.constants.DBConstants
+     */
     public boolean isUserAlreadyComing(String vehicleRegNumber) {
         Connection con = null;
         try {
@@ -111,6 +153,14 @@ public class TicketDAO {
         return false;
     }
 
+    /**
+     *
+     * @param vehicleRegNumber
+     * @return false if user select a vehicleRegNumber already inside the parking
+     * because before, user could entry twice the same vehicle in the parking
+     * so now this function verify that user can't put the same vehicle twice
+     * if true the program continue without warning
+     */
     public boolean isUserNotAlreadyArrive(String vehicleRegNumber) {
         Connection con = null;
         try {
@@ -133,6 +183,15 @@ public class TicketDAO {
         return true;
     }
 
+    /**
+     *
+     * @param vehicleRegNumber
+     * @return true if vehicle is a recurringUser
+     * verify that the user already came but not verify if user
+     * paid the first time as we should consider 5% discount
+     * only if user park was not free the first time
+     * @see TicketDAO.isUserAlreadyComing
+     */
     public boolean recurringUser(String vehicleRegNumber) {
         Connection con = null;
         try {

@@ -1,6 +1,10 @@
 package com.parkit.parkingsystem.constants;
 
 public class DBConstants {
+    /**
+     * This class prepared the Statement
+     * it's linked with the database "prod" and "test"
+     */
 
     public static final String GET_NEXT_PARKING_SPOT = "select min(PARKING_NUMBER) from parking where AVAILABLE = true and TYPE = ?";
     public static final String UPDATE_PARKING_SPOT = "update parking set available = ? where PARKING_NUMBER = ?";

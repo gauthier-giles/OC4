@@ -35,6 +35,10 @@ public class ParkingDataBaseIT {
         dataBasePrepareService = new DataBasePrepareService();
     }
 
+    /**
+     * create a new vehicle inside the parking inside the "test" database
+     * the vehicle registration number will always be ABCDEF
+     */
     @BeforeEach
     private void setUpPerTest() throws Exception {
         when(inputReaderUtil.readSelection()).thenReturn(1);
@@ -42,6 +46,9 @@ public class ParkingDataBaseIT {
         dataBasePrepareService.clearDataBaseEntries();
     }
 
+    /**
+     * verify if park a new car is possible
+     */
     @Test
     public void testParkingACar(){
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
@@ -49,6 +56,9 @@ public class ParkingDataBaseIT {
 
     }
 
+    /**
+     * verify if park and exit a vehicle is possible
+     */
     @Test
     public void testParkingLotExit(){
         testParkingACar();
