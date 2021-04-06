@@ -17,9 +17,9 @@ import java.sql.Timestamp;
  * This class create, save, and update the parking's ticket
  * @see DataBaseConfig
  *
- * verify if user left the parking
- * verify if user don't occupy and existing place
- * and verify if user is a recurring user or no
+ * verify if customer left the parking
+ * verify if customer don't occupy and existing place
+ * and verify if customer is a recurring user or no
  *
  * @throws logger.error
  */
@@ -64,7 +64,7 @@ public class TicketDAO {
      *
      * @param vehicleRegNumber
      * @return the ticket, with vehicleRegNumber, the parkingSpot, the ID, the Price, the entry and the exit
-     * show to the user the price
+     * show to the user or customer the price
      * @see com.parkit.parkingsystem.service.FareCalculatorService
      * @see com.parkit.parkingsystem.constants.Fare
      * @see ParkingType
@@ -127,8 +127,8 @@ public class TicketDAO {
      *
      * @param vehicleRegNumber vehicle registration number (as a numberplate)
      * @return true if the vehicle ever coming in the parking as a paying user
-     * verify if user have paid last time he's coming (more than 30 minutes)
-     * if yes, user will have a 5% discount
+     * verify if customer have paid last time he's coming (more than 30 minutes)
+     * if yes, customer will have a 5% discount
      * @see com.parkit.parkingsystem.constants.DBConstants
      */
     public boolean isUserAlreadyComing(String vehicleRegNumber) {
@@ -157,7 +157,7 @@ public class TicketDAO {
      *
      * @param vehicleRegNumber
      * @return false if user select a vehicleRegNumber already inside the parking
-     * because before, user could entry twice the same vehicle in the parking
+     * because before, customer could entry twice the same vehicle in the parking
      * so now this function verify that user can't put the same vehicle twice
      * if true the program continue without warning
      */
@@ -189,7 +189,7 @@ public class TicketDAO {
      * @return true if vehicle is a recurringUser
      * verify that the user already came but not verify if user
      * paid the first time as we should consider 5% discount
-     * only if user park was not free the first time
+     * only if customer park was not free the first time
      * @see TicketDAO.isUserAlreadyComing
      */
     public boolean recurringUser(String vehicleRegNumber) {
@@ -210,7 +210,6 @@ public class TicketDAO {
         } finally {
             dataBaseConfig.closeConnection(con);
         }
-        System.out.println("vehicle already gone, please select another vehicle registration number");
         return false;
     }
 

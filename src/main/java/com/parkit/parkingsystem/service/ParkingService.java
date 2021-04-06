@@ -34,13 +34,13 @@ public class ParkingService {
     }
 
     /**
-     * proceed in setting the vehicle information in the prod database
+     * proceed in setting the vehicle informations in the prod database
      * when an incoming vehicle park or leave.
      * linked with TicketDAO, and ParkingSpotDao.
      * @see com.parkit.parkingsystem.dao.TicketDAO
      * @see com.parkit.parkingsystem.dao.ParkingSpotDAO
      * it verify that the vehicle is not already inside the parking,
-     * and display if user already coming.
+     * and display if customer already coming.
      * update the parkingSpot.
      * @throws logger exception.
      */
@@ -144,7 +144,7 @@ public class ParkingService {
      * @see com.parkit.parkingsystem.dao.TicketDAO
      * @see com.parkit.parkingsystem.dao.ParkingSpotDAO
      *
-     * display the price, the vehicleRegNumber, and if user was a recurring user.
+     * display the price, the vehicleRegNumber, and if customer was a recurring user.
      *
      * @throws logger error
      * if it's unable to exit a vehicle park in the database.
